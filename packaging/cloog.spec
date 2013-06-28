@@ -9,6 +9,7 @@ Group:          Development/Languages/C and C++
 Url:            http://www.cloog.org/
 Source:         cloog-ppl-0.15.10.tar.bz2
 Source1:        baselibs.conf
+Source1001: 	cloog.manifest
 BuildRequires:  libtool
 BuildRequires:  ppl-devel
 
@@ -33,6 +34,7 @@ The shared library for the Chunky Loop Generator.
 
 %prep
 %setup -q -n cloog-ppl-0.15.10
+cp %{SOURCE1001} .
 
 %build
 ./autogen.sh
@@ -50,15 +52,18 @@ make %{_smp_mflags} check
 %postun -n libcloog -p /sbin/ldconfig
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_bindir}/cloog
 %doc %{_infodir}/cloog.info*gz
 
 %files -n libcloog
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_libdir}/libcloog.so.*
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_includedir}/cloog
 %{_libdir}/libcloog.so

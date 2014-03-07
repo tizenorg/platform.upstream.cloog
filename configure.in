@@ -192,7 +192,7 @@ else
     dnl Default given by --with-X is "yes", --without-X is "no". We also
     dnl initialized manually all gmp_package* variables to "yes" (thus they are
     dnl supposed to be "yes" except if the user set them himself).
-    
+
     if test "$gmp_package" != "yes" ; then
       echo "(GMP path has been set by user)"
       GMP_DIR=$gmp_package
@@ -200,15 +200,15 @@ else
       CPPFLAGS="-I$GMP_DIR/include $CPPFLAGS"
       LDFLAGS="-L$GMP_DIR/lib $LDFLAGS"
     fi
-    
+
     if test "$gmp_include_package" != "yes" ; then
       CPPFLAGS="-I$GMP_INC $CPPFLAGS"
     fi
-    
+
     if test "$gmp_library_package" != "yes" ; then
       LDFLAGS="-L$GMP_LIB $LDFLAGS"
     fi
-     
+
     AC_CHECK_HEADER(gmp.h,
                     [],
                     [AC_MSG_ERROR(Can't find gmp headers.)])
@@ -216,7 +216,7 @@ else
                  __gmpz_init,
                  [LIBS="$LIBS -lgmp"],
                  [AC_MSG_ERROR(Can't find gmp library.)])
-    
+
     AC_MSG_RESULT(yes)
   fi
 fi
@@ -338,7 +338,7 @@ if test "x$with_ppl" != "x" -a "x$with_ppl" != "xno"; then
 
 	AC_MSG_CHECKING([for version 0.10 (or later revision) of PPL])
 	AC_TRY_COMPILE([#include "ppl_c.h"],[
-	#if PPL_VERSION_MAJOR != 0 || PPL_VERSION_MINOR < 10
+	#if PPL_VERSION_MAJOR < 1 && PPL_VERSION_MINOR <= 10
 	choke me
 	#endif
 	], [AC_MSG_RESULT([yes])], [AC_MSG_ERROR(Can't find correct version of PPL.) ])
